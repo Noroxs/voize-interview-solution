@@ -8,4 +8,6 @@ data class CareReport(
     val createdBy: String,
     val text: String,
     val categories: List<String>
-)
+) {
+    val categoryTypes: List<CategoryType> = categories.map { CategoryType(it) }
+}
