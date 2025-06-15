@@ -1,6 +1,7 @@
 package com.example.patientdataapp.ui.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,7 @@ fun PatientListCellView(cellViewModel: PatientListCellViewModel) {
         modifier = Modifier
             .padding(horizontal = 15.dp, vertical = 5.dp)
             .shadow(
-                elevation = 8.dp,
+                elevation = 4.dp,
                 shape = RoundedCornerShape(16.dp),
                 clip = false
             )
@@ -36,6 +37,9 @@ fun PatientListCellView(cellViewModel: PatientListCellViewModel) {
                 shape = RoundedCornerShape(16.dp)
             )
             .fillMaxWidth()
+            .clickable {
+                cellViewModel.cellWasClicked()
+            }
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -65,5 +69,5 @@ fun PatientListCellView(cellViewModel: PatientListCellViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun PatientListCellViewPreview() {
-    PatientListCellView(cellViewModel = PatientListCellViewModel(data.first()))
+    PatientListCellView(cellViewModel = PatientListCellViewModel(data.first()) { })
 }
