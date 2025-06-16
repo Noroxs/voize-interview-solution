@@ -14,5 +14,10 @@ class MockPatientApiService(
         return data
     }
 
-    override suspend fun getPatientById(id: String): Patient? = data.find { it.id == id }
+    override suspend fun getPatientById(id: String): Patient? {
+        delay(1000)
+        //throw RuntimeException("Something went wrong")
+
+        return data.find { it.id == id }
+    }
 }

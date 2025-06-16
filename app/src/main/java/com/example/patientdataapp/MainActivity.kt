@@ -15,6 +15,8 @@ import com.example.patientdataapp.repository.PatientRepository
 import com.example.patientdataapp.ui.theme.PatientDataAppTheme
 
 class MainActivity : ComponentActivity() {
+    private val repository = PatientRepository(MockPatientApiService(data = data))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,7 +25,6 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { padding ->
-                    val repository = PatientRepository(MockPatientApiService(data = data))
                     Navigation(repository = repository,
                         modifier = Modifier
                             .padding(padding)

@@ -6,15 +6,13 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavArgs
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.patientdataapp.data.data
-import com.example.patientdataapp.datamodel.Patient
 import com.example.patientdataapp.repository.PatientRepository
+import com.example.patientdataapp.ui.viewmodel.PatientDetailViewModel
 import com.example.patientdataapp.ui.viewmodel.PatientListViewModel
 import com.example.patientdataapp.ui.views.PatientDetailScreen
 import com.example.patientdataapp.ui.views.PatientListScreen
@@ -32,7 +30,9 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                             return PatientListViewModel(
                                 repository = repository,
                                 cellClick = {
-                                    navController.navigate(Screen.DetailScreen.withArgs(it))
+                                    navController.navigate(
+                                        Screen.DetailScreen.withArgs(it.patientID, it.fullName)
+                                    )
                                 }
                             ) as T
                         }
@@ -41,15 +41,33 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                 PatientListScreen(viewModel)
             }
             composable(
-                Screen.DetailScreen.route + "/{patientID}",
+                Screen.DetailScreen.route + "/{patientID}/{title}",
                 arguments = listOf(
                     navArgument(name = "patientID") {
+                        type = NavType.StringType
+                    },
+                    navArgument(name = "title") {
                         type = NavType.StringType
                     }
                 )
             ) { entry ->
-                val patient = data.find { it.id == entry.arguments?.getString("patientID") }
-                PatientDetailScreen(patient = patient)
+                val title = entry.arguments?.getString("title")
+                val patientID = entry.arguments?.getString("patientID")
+
+                val viewModel = viewModel<PatientDetailViewModel>(
+                    key = "DetailViewModel_${patientID}",
+                    factory = object : ViewModelProvider.Factory {
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                            return PatientDetailViewModel(
+                                viewTitle = title,
+                                patientID = patientID,
+                                repository = repository,
+                            ) as T
+                        }
+                    }
+                )
+
+                PatientDetailScreen(viewModel)
             }
         }
     }

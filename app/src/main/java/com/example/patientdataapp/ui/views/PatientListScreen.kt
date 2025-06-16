@@ -56,8 +56,8 @@ fun PatientListScreen(viewModel: PatientListViewModel) {
                 .background(MaterialTheme.colorScheme.primary)
         )
         when {
-            viewModel.isLoading -> LoadingIndicator()
-            viewModel.errorOccurred -> ErrorScreen(viewModel.errorText)
+            viewModel.isLoading -> LoadingView()
+            viewModel.errorOccurred -> ErrorView(viewModel.errorText)
             else -> PatientList(viewModel.patientListCellViewModels)
         }
     }
@@ -74,36 +74,5 @@ private fun PatientList(patients: List<PatientListCellViewModel>) {
         items(patients) {
             PatientListCellView(it)
         }
-    }
-}
-
-@Composable
-private fun LoadingIndicator() {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 20.dp)
-
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.width(32.dp),
-            color = MaterialTheme.colorScheme.tertiary,
-            trackColor = MaterialTheme.colorScheme.background,
-        )
-    }
-}
-
-@Composable
-private fun ErrorScreen(text: String) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = text,
-            color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.titleLarge
-        )
     }
 }

@@ -22,37 +22,49 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.patientdataapp.data.data
 import com.example.patientdataapp.datamodel.Patient
+import com.example.patientdataapp.network.api.MockPatientApiService
+import com.example.patientdataapp.repository.PatientRepository
 import com.example.patientdataapp.ui.viewmodel.CareReportsCellViewModel
+import com.example.patientdataapp.ui.viewmodel.PatientDetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-//fun PatientDetailScreen(navController: NavController, repository: PatientRepository, patientID: String?) {
-fun PatientDetailScreen(patient: Patient?) {
-    patient?.let {
+fun PatientDetailScreen(viewModel: PatientDetailViewModel) {
         Column {
             TopAppBar(
                 title = {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(it.fullName, style = MaterialTheme.typography.titleLarge)
+                        Text(
+                            text = viewModel.screenTitle,
+                            style = MaterialTheme.typography.titleLarge
+                        )
                     }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primary)
             )
-            LazyColumn(
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .background(MaterialTheme.colorScheme.secondary)
-            ) {
-                items(it.careReports.sortedBy { it.createdAt }) {
-                    CareReportCellView(CareReportsCellViewModel(it))
-                }
+            when {
+                viewModel.isLoading -> LoadingView()
+                viewModel.errorOccurred -> ErrorView(viewModel.errorText)
+                else -> CareReportView(viewModel.careReportsCellViewModel)
             }
+        }
+}
+
+@Composable
+private fun CareReportView(careReports: List<CareReportsCellViewModel>) {
+    LazyColumn(
+        verticalArrangement = Arrangement.Top,
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(MaterialTheme.colorScheme.secondary)
+    ) {
+        items(careReports) {
+            CareReportCellView(it)
         }
     }
 }
@@ -60,12 +72,10 @@ fun PatientDetailScreen(patient: Patient?) {
 @Preview(showBackground = true)
 @Composable
 fun PatientDetailScreenPreview() {
-    PatientDetailScreen(data.first())
-//    val navController = rememberNavController()
-//    val repository = PatientRepository(apiService = MockPatientApiService(data))
-//    PatientDetailScreen(
-//        navController = navController,
-//        repository = repository,
-//        patientID = "b270b476-e2c2-11ec-8fea-0242ac120002"
-//    )
+    val viewModel = PatientDetailViewModel(
+        viewTitle = "Test",
+        patientID = "b270b476-e2c2-11ec-8fea-0242ac120002",
+        repository = PatientRepository(apiService = MockPatientApiService(data))
+    )
+    PatientDetailScreen(viewModel)
 }
