@@ -5,10 +5,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 class CareReportsCellViewModel(
-    careReport: CareReport
+    careReport: CareReport,
+    timeZone: TimeZone = TimeZone.currentSystemDefault()
 ) {
     val text = careReport.text
-    private val createdAt = careReport.createdAt.toLocalDateTime(TimeZone.currentSystemDefault())
+    private val createdAt = careReport.createdAt.toLocalDateTime(timeZone)
     val creationInformation = "${createdAt.dayOfMonth.toString().padStart(2, '0')}." +
                 "${createdAt.monthNumber.toString().padStart(2, '0')}." +
                 "${createdAt.year}" +
