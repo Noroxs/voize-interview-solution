@@ -1,6 +1,6 @@
 package com.example.patientdataapp
 
-import com.example.patientdataapp.datamodel.CareReport
+import com.example.patientdataapp.datamodel.PassPatientData
 import com.example.patientdataapp.datamodel.Patient
 import com.example.patientdataapp.helper.DataFactory
 import com.example.patientdataapp.ui.viewmodel.PatientListCellViewModel
@@ -20,19 +20,35 @@ class PatientListCellViewModelTest {
 
     @Test
     fun patientCellViewModel_fullName_isCorrect() {
-        val viewModel = PatientListCellViewModel(patient)
+        val viewModel = PatientListCellViewModel(patient) { }
         assertEquals("salutation firstName lastName", viewModel.fullName)
     }
 
     @Test
     fun patientCellViewModel_birthdate_isCorrect() {
-        val viewModel = PatientListCellViewModel(patient)
+        val viewModel = PatientListCellViewModel(patient) { }
         assertEquals("Geburtstag: 17.08.1988", viewModel.birthdate)
     }
 
     @Test
     fun patientCellViewModel_reportsCount_isCorrect() {
-        val viewModel = PatientListCellViewModel(patient)
+        val viewModel = PatientListCellViewModel(patient) { }
         assertEquals("Reports: 5", viewModel.reportsCount)
+    }
+
+    @Test
+    fun patientCellViewModel_cellClickedCall_isCorrect() {
+        val expectedData = PassPatientData("salutation firstName lastName", patientID = "id")
+        var passedPatientData: PassPatientData? = null
+        var invokeCount = 0
+
+        val viewModel = PatientListCellViewModel(patient) {
+            invokeCount++
+            passedPatientData = it
+        }
+        viewModel.cellWasClicked()
+
+        assertEquals(1, invokeCount)
+        assertEquals(expectedData, passedPatientData)
     }
 }
