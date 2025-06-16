@@ -1,7 +1,6 @@
 package com.example.patientdataapp.ui.viewmodel
 
 import com.example.patientdataapp.datamodel.CareReport
-import com.example.patientdataapp.datamodel.Patient
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 

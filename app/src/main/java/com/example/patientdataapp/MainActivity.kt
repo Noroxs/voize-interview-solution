@@ -7,9 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.patientdataapp.data.data
 import com.example.patientdataapp.navigation.Navigation
 import com.example.patientdataapp.network.api.MockPatientApiService
@@ -25,19 +23,13 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { padding ->
-                    val repository = PatientRepository(apiService = MockPatientApiService(data = data))
-                    Navigation(repository = repository, modifier = Modifier.padding(padding))
+                    val repository = PatientRepository(MockPatientApiService(data = data))
+                    Navigation(repository = repository,
+                        modifier = Modifier
+                            .padding(padding)
+                    )
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PatientDataAppTheme {
-        val repository = PatientRepository(apiService = MockPatientApiService(data = data))
-        Navigation(repository = repository)
     }
 }

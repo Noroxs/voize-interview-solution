@@ -11,7 +11,7 @@ val ActivityIcon: ImageVector
         if (_ActivityIcon != null) return _ActivityIcon!!
 
         _ActivityIcon = ImageVector.Builder(
-            name = "Directions_walk",
+            name = "Directions_run",
             defaultWidth = 24.dp,
             defaultHeight = 24.dp,
             viewportWidth = 960f,
@@ -20,32 +20,34 @@ val ActivityIcon: ImageVector
             path(
                 fill = SolidColor(Color(0xFF000000))
             ) {
-                moveToRelative(280f, -40f)
-                lineToRelative(112f, -564f)
+                moveTo(520f, 920f)
+                verticalLineToRelative(-240f)
+                lineToRelative(-84f, -80f)
+                lineToRelative(-40f, 176f)
+                lineToRelative(-276f, -56f)
+                lineToRelative(16f, -80f)
+                lineToRelative(192f, 40f)
+                lineToRelative(64f, -324f)
                 lineToRelative(-72f, 28f)
                 verticalLineToRelative(136f)
                 horizontalLineToRelative(-80f)
                 verticalLineToRelative(-188f)
-                lineToRelative(202f, -86f)
-                quadToRelative(14f, -6f, 29.5f, -7f)
-                reflectiveQuadToRelative(29.5f, 4f)
-                reflectiveQuadToRelative(26.5f, 14f)
-                reflectiveQuadToRelative(20.5f, 23f)
+                lineToRelative(158f, -68f)
+                quadToRelative(35f, -15f, 51.5f, -19.5f)
+                reflectiveQuadTo(480f, 240f)
+                quadToRelative(21f, 0f, 39f, 11f)
+                reflectiveQuadToRelative(29f, 29f)
                 lineToRelative(40f, 64f)
                 quadToRelative(26f, 42f, 70.5f, 69f)
                 reflectiveQuadTo(760f, 440f)
                 verticalLineToRelative(80f)
-                quadToRelative(-70f, 0f, -125f, -29f)
-                reflectiveQuadToRelative(-94f, -74f)
-                lineToRelative(-25f, 123f)
+                quadToRelative(-66f, 0f, -123.5f, -27.5f)
+                reflectiveQuadTo(540f, 420f)
+                lineToRelative(-24f, 120f)
                 lineToRelative(84f, 80f)
                 verticalLineToRelative(300f)
-                horizontalLineToRelative(-80f)
-                verticalLineToRelative(-260f)
-                lineToRelative(-84f, -64f)
-                lineToRelative(-72f, 324f)
                 close()
-                moveToRelative(260f, -700f)
+                moveToRelative(20f, -700f)
                 quadToRelative(-33f, 0f, -56.5f, -23.5f)
                 reflectiveQuadTo(460f, 140f)
                 reflectiveQuadToRelative(23.5f, -56.5f)

@@ -3,23 +3,42 @@ package com.example.patientdataapp.navigation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavArgs
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.patientdataapp.data.data
+import com.example.patientdataapp.datamodel.Patient
 import com.example.patientdataapp.repository.PatientRepository
+import com.example.patientdataapp.ui.viewmodel.PatientListViewModel
 import com.example.patientdataapp.ui.views.PatientDetailScreen
 import com.example.patientdataapp.ui.views.PatientListScreen
 
 @Composable
 fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
+
     Box(modifier = modifier) {
         NavHost(navController = navController, startDestination = Screen.RootScreen.route) {
             composable(Screen.RootScreen.route) {
-                PatientListScreen(navController, repository)
+                val viewModel = viewModel<PatientListViewModel>(
+                    factory = object : ViewModelProvider.Factory {
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                            return PatientListViewModel(
+                                repository = repository,
+                                cellClick = {
+                                    navController.navigate(Screen.DetailScreen.withArgs(it))
+                                }
+                            ) as T
+                        }
+                    }
+                )
+                PatientListScreen(viewModel)
             }
             composable(
                 Screen.DetailScreen.route + "/{patientID}",
@@ -29,15 +48,12 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                     }
                 )
             ) { entry ->
-                PatientDetailScreen(
-                    navController = navController,
-                    repository = repository,
-                    patientID = entry.arguments?.getString("patientID"))
+                val patient = data.find { it.id == entry.arguments?.getString("patientID") }
+                PatientDetailScreen(patient = patient)
             }
         }
     }
 }
-
 
 sealed class Screen(val route: String) {
     data object RootScreen : Screen("patient_list_screen")

@@ -9,4 +9,6 @@ data class Patient(
     val lastName: String,
     val birthday: LocalDate,
     val careReports: List<CareReport>
-)
+) {
+    val fullName = "${salutation} ${firstName} ${lastName}"
+}
