@@ -1,20 +1,17 @@
 package com.example.patientdataapp.ui.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.patientdataapp.repository.PatientRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class PatientDetailViewModel(
-    private val viewTitle: String?,
+    viewTitle: String?,
     private val patientID: String?,
     private val repository: PatientRepository
 ) : ViewModel() {
@@ -46,12 +43,16 @@ class PatientDetailViewModel(
                         isLoading = false
                         errorOccurred = true
                     }
-                    .collect { patient ->
+                    .collect {
                         isLoading = false
 
-                        patient?.let {
-                            screenTitle = it.fullName
-                            careReportsCellViewModel = it.careReports.map { careReport ->
+                        it?.let { patient ->
+                            screenTitle = patient.fullName
+                            careReportsCellViewModel = patient.careReports
+                                .sortedBy { careReport->
+                                    careReport.createdAt
+                                }
+                                .map { careReport ->
                                 CareReportsCellViewModel(careReport)
                             }
                         } ?: run {
@@ -64,5 +65,4 @@ class PatientDetailViewModel(
             }
         }
     }
-
 }

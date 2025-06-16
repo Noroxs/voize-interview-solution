@@ -42,11 +42,13 @@ class PatientListViewModel(
                 }
                 .collect { patients ->
                     isLoading = false
-                    patientListCellViewModels = patients.map { patient ->
-                        PatientListCellViewModel(patient) {
-                            cellClick(it)
+                    patientListCellViewModels = patients
+                        .sortedBy { it.lastName + it.firstName }
+                        .map { patient ->
+                            PatientListCellViewModel(patient) {
+                                cellClick(it)
+                            }
                         }
-                    }
                 }
         }
     }
