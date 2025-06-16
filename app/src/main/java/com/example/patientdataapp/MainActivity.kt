@@ -15,7 +15,7 @@ import com.example.patientdataapp.repository.PatientRepository
 import com.example.patientdataapp.ui.theme.PatientDataAppTheme
 
 class MainActivity : ComponentActivity() {
-    private val repository = PatientRepository(MockPatientApiService(data = data))
+    private val repository = PatientRepository(MockPatientApiService(data = data, delayTime = 1000))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
