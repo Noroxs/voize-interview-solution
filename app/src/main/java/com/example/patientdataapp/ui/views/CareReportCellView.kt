@@ -20,11 +20,16 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.patientdataapp.data.data
+import com.example.patientdataapp.datamodel.CareReport
+import com.example.patientdataapp.ui.viewmodel.CareReportsCellViewModel
 import com.example.patientdataapp.ui.viewmodel.PatientListCellViewModel
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 
 @Composable
-fun CareReportCellView(cellViewModel: PatientListCellViewModel) {
+fun CareReportCellView(cellViewModel: CareReportsCellViewModel) {
     Box(
         modifier = Modifier
             .padding(horizontal = 15.dp, vertical = 5.dp)
@@ -44,7 +49,7 @@ fun CareReportCellView(cellViewModel: PatientListCellViewModel) {
                 .padding(horizontal = 15.dp, vertical = 7.dp)
         ) {
             Text(
-                text ="Hat heute nicht gut mitgemacht, sie war schlecht gelaunt und wollte an den Beschäftigungangeboten nicht teilnehmen.",
+                text = cellViewModel.text,
                 style = MaterialTheme.typography.bodyMedium)
 
             Divider(
@@ -54,8 +59,9 @@ fun CareReportCellView(cellViewModel: PatientListCellViewModel) {
             )
 
             Column {
+                CareReportCategoriesView(cellViewModel.categoryTypes)
                 Text(
-                    text = "15.07.2025 20:40 von Fr. Saad",
+                    text = cellViewModel.creationInformation,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -63,16 +69,8 @@ fun CareReportCellView(cellViewModel: PatientListCellViewModel) {
     }
 }
 
-//CareReport(
-//id = "f7fecf7f-72e9-4123-80eb-a4ed39cd263f",
-//createdBy = "Fr. Saad",
-//createdAt = Instant.parse("2022-05-05T10:45:13.533Z"),
-//text = "Hat heute nicht gut mitgemacht, sie war schlecht gelaunt und wollte an den Beschäftigungangeboten nicht teilnehmen.",
-//categories = listOf("Teilnahme", "Aktivität")
-
-
 @Preview(showBackground = true)
 @Composable
 fun CareReportCellViewPreview() {
-    CareReportCellView(cellViewModel = PatientListCellViewModel(data.first()) { })
+    CareReportCellView(CareReportsCellViewModel(data.first().careReports.first()))
 }

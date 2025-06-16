@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,19 +31,19 @@ import androidx.compose.ui.unit.sp
 fun CareReportCategoryView(category: CategoryType, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .padding(horizontal = 2.dp, vertical = 5.dp)
+            .padding(horizontal = 0.dp, vertical = 1.dp)
             .shadow(
                 elevation = 2.dp,
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(8.dp),
                 clip = false
             )
             .background(
                 color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(8.dp),
                 color = Color.DarkGray
             )
     ) {
@@ -51,7 +52,7 @@ fun CareReportCategoryView(category: CategoryType, modifier: Modifier = Modifier
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .background(category.color)
-                .padding(horizontal = 5.dp, vertical = 5.dp)
+                .padding(4.dp)
                 .height(10.dp)
         ) {
             category.image?.let {
@@ -78,10 +79,13 @@ fun CareReportCategoriesView(categories: List<CategoryType>) {
         horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(2.dp)
     ) {
         for (category in categories) {
-            CareReportCategoryView(category = category)
+            Row {
+                CareReportCategoryView(category = category)
+                Spacer(modifier = Modifier.width(2.dp))
+            }
+
         }
     }
 }
