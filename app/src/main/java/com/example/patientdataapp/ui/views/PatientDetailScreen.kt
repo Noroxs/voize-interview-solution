@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -30,7 +31,11 @@ import com.example.patientdataapp.ui.viewmodel.PatientDetailViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PatientDetailScreen(viewModel: PatientDetailViewModel) {
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.secondary)
+        ) {
             TopAppBar(
                 title = {
                     Row(
