@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -93,7 +92,6 @@ fun CareReportCategoriesView(categories: List<CategoryType>) {
 @Preview(showBackground = true)
 @Composable
 fun CareReportCategoriesViewPreview() {
-    //CareReportCategoryView(CategoryType("Wohlbefinden"))
     CareReportCategoriesView(
         listOf(
             CategoryType("Wohlbefinden"),
@@ -102,6 +100,6 @@ fun CareReportCategoriesViewPreview() {
             CategoryType("Aktivität"),
             CategoryType("Hygiene"),
             CategoryType("Unknown")
-            )
+        )
     )
 }
