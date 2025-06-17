@@ -1,6 +1,6 @@
 package com.example.patientdataapp
 
-import com.example.patientdataapp.datamodel.PassPatientData
+import com.example.patientdataapp.datamodel.PatientNavigationData
 import com.example.patientdataapp.datamodel.Patient
 import com.example.patientdataapp.helper.DataFactory
 import com.example.patientdataapp.ui.viewmodel.PatientListCellViewModel
@@ -38,8 +38,8 @@ class PatientListCellViewModelTest {
 
     @Test
     fun patientCellViewModel_cellClickedCall_isCorrect() {
-        val expectedData = PassPatientData("salutation firstName lastName", patientID = "id")
-        var passedPatientData: PassPatientData? = null
+        val expectedData = PatientNavigationData("salutation firstName lastName", patientID = "id")
+        var passedPatientData: PatientNavigationData? = null
         var invokeCount = 0
 
         val viewModel = PatientListCellViewModel(patient) {

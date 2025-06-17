@@ -6,14 +6,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.patientdataapp.datamodel.PassPatientData
+import com.example.patientdataapp.datamodel.PatientNavigationData
 import com.example.patientdataapp.repository.PatientRepository
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class PatientListViewModel(
     private val repository: PatientRepository,
-    private val cellClick: (passPatientData: PassPatientData) -> Unit
+    private val cellClick: (patientNavigationData: PatientNavigationData) -> Unit
 ) : ViewModel() {
 
     var patientListCellViewModels by mutableStateOf(emptyList<PatientListCellViewModel>())

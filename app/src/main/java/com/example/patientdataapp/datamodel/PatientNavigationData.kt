@@ -1,6 +1,6 @@
 package com.example.patientdataapp.datamodel
 
-data class PassPatientData(
+data class PatientNavigationData(
     val fullName: String,
     val patientID: String
 )
