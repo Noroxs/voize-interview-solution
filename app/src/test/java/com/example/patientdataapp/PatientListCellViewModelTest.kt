@@ -19,35 +19,28 @@ class PatientListCellViewModelTest {
 
     @Test
     fun patientCellViewModel_fullName_isCorrect() {
-        val viewModel = PatientListCellViewModel(patient) { }
+        val viewModel = PatientListCellViewModel(patient)
         assertEquals("salutation firstName lastName", viewModel.fullName)
     }
 
     @Test
     fun patientCellViewModel_birthdate_isCorrect() {
-        val viewModel = PatientListCellViewModel(patient) { }
+        val viewModel = PatientListCellViewModel(patient)
         assertEquals("Geburtstag: 17.08.1988", viewModel.birthdate)
     }
 
     @Test
     fun patientCellViewModel_reportsCount_isCorrect() {
-        val viewModel = PatientListCellViewModel(patient) { }
+        val viewModel = PatientListCellViewModel(patient)
         assertEquals("Reports: 5", viewModel.reportsCount)
     }
 
     @Test
     fun patientCellViewModel_cellClickedCall_isCorrect() {
         val expectedData = "id"
-        var patientID: String? = null
-        var invokeCount = 0
 
-        val viewModel = PatientListCellViewModel(patient) {
-            invokeCount++
-            patientID = it
-        }
-        viewModel.cellWasClicked()
+        val viewModel = PatientListCellViewModel(patient)
 
-        assertEquals(1, invokeCount)
-        assertEquals(expectedData, patientID)
+        assertEquals(expectedData, viewModel.cellWasClicked())
     }
 }

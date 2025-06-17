@@ -3,8 +3,7 @@ package com.example.patientdataapp.ui.viewmodel
 import com.example.patientdataapp.datamodel.Patient
 
 class PatientListCellViewModel(
-    private val patient: Patient,
-    private val onClick: (String) -> Unit
+    private val patient: Patient
 ) {
     val fullName = patient.fullName
     val reportsCount = "Reports: ${patient.careReports.count()}"
@@ -12,8 +11,6 @@ class PatientListCellViewModel(
             "${patient.birthday.monthNumber.toString().padStart(2, '0')}." +
             "${patient.birthday.year}"
 
-    fun cellWasClicked() {
-        onClick(patient.id)
-    }
+    fun cellWasClicked(): String = patient.id
 }
 

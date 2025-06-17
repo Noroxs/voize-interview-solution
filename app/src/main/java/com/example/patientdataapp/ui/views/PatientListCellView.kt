@@ -23,7 +23,10 @@ import com.example.patientdataapp.ui.viewmodel.PatientListCellViewModel
 
 
 @Composable
-fun PatientListCellView(cellViewModel: PatientListCellViewModel) {
+fun PatientListCellView(
+    cellViewModel: PatientListCellViewModel,
+    onPatientClick: (patientId: String) -> Unit)
+{
     Box(
         modifier = Modifier
             .padding(horizontal = 15.dp, vertical = 5.dp)
@@ -38,7 +41,7 @@ fun PatientListCellView(cellViewModel: PatientListCellViewModel) {
             )
             .fillMaxWidth()
             .clickable {
-                cellViewModel.cellWasClicked()
+                onPatientClick(cellViewModel.cellWasClicked())
             }
     ) {
         Row(
@@ -69,5 +72,6 @@ fun PatientListCellView(cellViewModel: PatientListCellViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun PatientListCellViewPreview() {
-    PatientListCellView(cellViewModel = PatientListCellViewModel(data.first()) { })
+    PatientListCellView(
+        cellViewModel = PatientListCellViewModel(data.first())) {}
 }

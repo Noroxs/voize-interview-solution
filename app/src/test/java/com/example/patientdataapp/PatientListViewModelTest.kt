@@ -26,7 +26,7 @@ class PatientListViewModelTest {
             val mockAPIClient = MockPatientApiService(DataFactory().getPatients(5))
             val repository = PatientRepository(mockAPIClient)
 
-            val viewModel = PatientListViewModel(repository) { }
+            val viewModel = PatientListViewModel(repository)
 
             advanceUntilIdle()
 

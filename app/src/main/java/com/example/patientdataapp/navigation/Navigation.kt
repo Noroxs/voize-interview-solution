@@ -28,17 +28,18 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                     factory = object : ViewModelProvider.Factory {
                         override fun <T : ViewModel> create(modelClass: Class<T>): T {
                             return PatientListViewModel(
-                                repository = repository,
-                                cellClick = {
-                                    navController.navigate(
-                                        Screen.DetailScreen.withArgs(it)
-                                    )
-                                }
+                                repository = repository
                             ) as T
                         }
                     }
                 )
-                PatientListScreen(viewModel)
+                PatientListScreen(viewModel,
+                    onPatientClick = {
+                        navController.navigate(
+                            Screen.DetailScreen.withArgs(it)
+                        )
+                    }
+                )
             }
             composable(
                 Screen.DetailScreen.route + "/{patientID}",

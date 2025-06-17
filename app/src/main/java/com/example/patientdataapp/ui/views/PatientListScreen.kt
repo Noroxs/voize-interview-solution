@@ -31,7 +31,10 @@ import com.example.patientdataapp.ui.viewmodel.PatientListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PatientListScreen(viewModel: PatientListViewModel) {
+fun PatientListScreen(
+    viewModel: PatientListViewModel,
+    onPatientClick: (patientId: String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,13 +57,19 @@ fun PatientListScreen(viewModel: PatientListViewModel) {
         when {
             viewModel.isLoading -> LoadingView()
             viewModel.errorOccurred -> ErrorView(viewModel.errorText)
-            else -> PatientList(viewModel.patientListCellViewModels)
+            else -> PatientList(
+                patients = viewModel.patientListCellViewModels,
+                onPatientClick = onPatientClick
+            )
         }
     }
 }
 
 @Composable
-private fun PatientList(patients: List<PatientListCellViewModel>) {
+private fun PatientList(
+    patients: List<PatientListCellViewModel>,
+    onPatientClick: (patientId: String) -> Unit
+) {
     LazyColumn(
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
@@ -68,7 +77,10 @@ private fun PatientList(patients: List<PatientListCellViewModel>) {
             .fillMaxHeight()
     ) {
         items(patients) {
-            PatientListCellView(it)
+            PatientListCellView(
+                cellViewModel = it,
+                onPatientClick = onPatientClick
+            )
         }
     }
 }
@@ -77,8 +89,7 @@ private fun PatientList(patients: List<PatientListCellViewModel>) {
 @Composable
 fun PatientListScreenPreview() {
     val viewModel = PatientListViewModel(
-        repository = PatientRepository(apiService = MockPatientApiService(data)),
-        cellClick = { }
+        repository = PatientRepository(apiService = MockPatientApiService(data))
     )
-    PatientListScreen(viewModel)
+    PatientListScreen(viewModel) {}
 }
