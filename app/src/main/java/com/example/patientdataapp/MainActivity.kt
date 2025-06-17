@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { padding ->
-                    Navigation(repository = repository,
+                    Navigation(
+                        repository = repository,
                         modifier = Modifier
                             .padding(padding)
                     )
