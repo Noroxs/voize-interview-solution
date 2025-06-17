@@ -10,5 +10,5 @@ data class Patient(
     val birthday: LocalDate,
     val careReports: List<CareReport>
 ) {
-    val fullName = "${salutation} ${firstName} ${lastName}"
+    val fullName = "$salutation $firstName $lastName"
 }

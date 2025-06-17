@@ -1,11 +1,10 @@
 package com.example.patientdataapp.ui.viewmodel
 
-import com.example.patientdataapp.datamodel.PatientNavigationData
 import com.example.patientdataapp.datamodel.Patient
 
 class PatientListCellViewModel(
     private val patient: Patient,
-    private val onClick: (patientNavigationData: PatientNavigationData) -> Unit
+    private val onClick: (String) -> Unit
 ) {
     val fullName = patient.fullName
     val reportsCount = "Reports: ${patient.careReports.count()}"
@@ -14,9 +13,7 @@ class PatientListCellViewModel(
             "${patient.birthday.year}"
 
     fun cellWasClicked() {
-        onClick(patient.navigationData())
+        onClick(patient.id)
     }
 }
 
-private fun Patient.navigationData(): PatientNavigationData =
-    PatientNavigationData(fullName = fullName, patientID = id)

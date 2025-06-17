@@ -73,7 +73,6 @@ private fun CareReportView(careReports: List<CareReportsCellViewModel>) {
 @Composable
 fun PatientDetailScreenPreview() {
     val viewModel = PatientDetailViewModel(
-        viewTitle = "Test",
         patientID = "b270b476-e2c2-11ec-8fea-0242ac120002",
         repository = PatientRepository(apiService = MockPatientApiService(data))
     )

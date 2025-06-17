@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class PatientDetailViewModel(
-    viewTitle: String?,
     private val patientID: String?,
     private val repository: PatientRepository
 ) : ViewModel() {
@@ -25,7 +24,7 @@ class PatientDetailViewModel(
     var errorOccurred by mutableStateOf(false)
         private set
 
-    var screenTitle by mutableStateOf(viewTitle ?: "Patient")
+    var screenTitle by mutableStateOf("Lade Patienten Daten")
         private set
 
     init {
@@ -38,8 +37,7 @@ class PatientDetailViewModel(
         viewModelScope.launch {
             patientID?.let {
                 repository.getPatientById(patientID)
-                    .catch { exception ->
-                        Log.e("Loading Patient", "Load patient ($patientID) failed: $exception");
+                    .catch {
                         isLoading = false
                         errorOccurred = true
                     }

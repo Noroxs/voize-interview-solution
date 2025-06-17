@@ -31,7 +31,7 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                                 repository = repository,
                                 cellClick = {
                                     navController.navigate(
-                                        Screen.DetailScreen.withArgs(it.patientID, it.fullName)
+                                        Screen.DetailScreen.withArgs(it)
                                     )
                                 }
                             ) as T
@@ -41,17 +41,13 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                 PatientListScreen(viewModel)
             }
             composable(
-                Screen.DetailScreen.route + "/{patientID}/{title}",
+                Screen.DetailScreen.route + "/{patientID}",
                 arguments = listOf(
                     navArgument(name = "patientID") {
-                        type = NavType.StringType
-                    },
-                    navArgument(name = "title") {
                         type = NavType.StringType
                     }
                 )
             ) { entry ->
-                val title = entry.arguments?.getString("title")
                 val patientID = entry.arguments?.getString("patientID")
 
                 val viewModel = viewModel<PatientDetailViewModel>(
@@ -59,7 +55,6 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                     factory = object : ViewModelProvider.Factory {
                         override fun <T : ViewModel> create(modelClass: Class<T>): T {
                             return PatientDetailViewModel(
-                                viewTitle = title,
                                 patientID = patientID,
                                 repository = repository,
                             ) as T
