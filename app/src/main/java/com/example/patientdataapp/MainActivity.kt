@@ -15,7 +15,8 @@ import com.example.patientdataapp.repository.PatientRepository
 import com.example.patientdataapp.ui.theme.PatientDataAppTheme
 
 class MainActivity : ComponentActivity() {
-    private val repository = PatientRepository(MockPatientApiService(data = data, delayTime = 1000))
+    private val simulateNetworkDelayInMs = 1000L
+    private val patientData = data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { padding ->
                     Navigation(
-                        repository = repository,
+                        repository = PatientRepository(
+                            apiService = MockPatientApiService(
+                                data = patientData,
+                                delayTime = simulateNetworkDelayInMs
+                            )
+                        ),
                         modifier = Modifier
                             .padding(padding)
                     )
