@@ -8,7 +8,10 @@ import kotlinx.datetime.LocalDateTime
 
 class DataFactory {
 
-    fun getPatients(amount: Int): List<Patient> {
+    fun getPatients(
+        amount: Int,
+        careReports: List<CareReport> = emptyList()
+    ): List<Patient> {
         if (amount <= 0) {
             return emptyList()
         }
@@ -18,7 +21,7 @@ class DataFactory {
                 firstName = "firstName $it",
                 lastName = "lastName $it",
                 birthday = LocalDate.parse("1970-01-01"),
-                careReports = emptyList()
+                careReports = careReports
             )
         }
     }
