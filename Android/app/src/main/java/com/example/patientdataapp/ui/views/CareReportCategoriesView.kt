@@ -1,5 +1,6 @@
 package com.example.patientdataapp.ui.views
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,47 +24,44 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.patientdataapp.datamodel.CategoryType
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
+import com.example.patientdataapp.ui.icons.HygieneIcon
 
 @Composable
-fun CareReportCategoryView(category: CategoryType, modifier: Modifier = Modifier) {
-    Box(
+fun PillView(
+    modifier: Modifier = Modifier,
+    text: String,
+    color: Color,
+    icon: ImageVector? = null,
+) {
+    Surface(
         modifier = modifier
-            .padding(horizontal = 0.dp, vertical = 1.dp)
-            .shadow(
-                elevation = 2.dp,
-                shape = RoundedCornerShape(8.dp),
-                clip = false
-            )
-            .background(
-                color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .border(
-                width = 1.dp,
-                shape = RoundedCornerShape(8.dp),
-                color = Color.DarkGray
-            )
+            .padding(horizontal = 0.dp, vertical = 1.dp),
+        color = color,
+        shape = RoundedCornerShape(8.dp),
+        shadowElevation = 2.dp,
+        border = BorderStroke(1.dp, color = Color.DarkGray)
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .background(category.color)
                 .padding(4.dp)
                 .height(10.dp)
         ) {
-            category.image?.let {
+            icon?.let {
                 Icon(
-                    category.image,
-                    contentDescription = category.title,
+                    icon,
+                    contentDescription = text,
                 )
                 Spacer(modifier = Modifier.width(1.dp))
             }
 
             Text(
-                text = category.title,
+                text = text,
                 style = MaterialTheme.typography.titleLarge,
                 fontSize = 7.sp
             )
@@ -81,7 +79,11 @@ fun CareReportCategoriesView(categories: List<CategoryType>) {
     ) {
         for (category in categories) {
             Row {
-                CareReportCategoryView(category = category)
+                PillView(
+                    text = category.title,
+                    color = category.color,
+                    icon = category.image
+                )
                 Spacer(modifier = Modifier.width(2.dp))
             }
 

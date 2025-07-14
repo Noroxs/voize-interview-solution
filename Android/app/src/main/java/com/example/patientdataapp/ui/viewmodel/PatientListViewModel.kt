@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class PatientListViewModel(
-    private val repository: PatientRepository
+    private val repository: PatientRepository,
 ) : ViewModel() {
 
     var patientListCellViewModels by mutableStateOf(emptyList<PatientListCellViewModel>())

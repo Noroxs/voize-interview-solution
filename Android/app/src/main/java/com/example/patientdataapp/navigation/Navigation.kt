@@ -28,7 +28,7 @@ fun Navigation(repository: PatientRepository, modifier: Modifier = Modifier) {
                     factory = object : ViewModelProvider.Factory {
                         override fun <T : ViewModel> create(modelClass: Class<T>): T {
                             return PatientListViewModel(
-                                repository = repository
+                                repository = repository,
                             ) as T
                         }
                     }
