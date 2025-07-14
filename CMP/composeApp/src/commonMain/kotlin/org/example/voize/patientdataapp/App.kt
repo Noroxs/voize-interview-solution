@@ -1,34 +1,31 @@
 package org.example.voize.patientdataapp
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import com.example.patientdataapp.ui.theme.PatientDataAppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import patientdataapp.composeapp.generated.resources.Res
-import patientdataapp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Hello world!")
+    PatientDataAppTheme {
+        Scaffold(
+            modifier = Modifier.fillMaxSize()
+        ) { padding ->
+//            Navigation(
+//                repository = PatientRepository(
+//                    apiService = MockPatientApiService(
+//                        data = data,
+//                        delayTime = simulateNetworkDelayInMs
+//                    )
+//                ),
+//                modifier = Modifier
+//                    .padding(padding)
+//            )
+            Text("Hello World!")
         }
     }
 }
