@@ -16,12 +16,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.patientdataapp.data.data
 import com.example.patientdataapp.network.api.MockPatientApiService
 import com.example.patientdataapp.repository.PatientRepository
 import com.example.patientdataapp.ui.viewmodel.CareReportsCellViewModel
 import com.example.patientdataapp.ui.viewmodel.PatientDetailViewModel
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,7 +69,7 @@ private fun CareReportView(careReports: List<CareReportsCellViewModel>) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 fun PatientDetailScreenPreview() {
     val viewModel = PatientDetailViewModel(

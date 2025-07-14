@@ -1,6 +1,5 @@
 package com.example.patientdataapp.ui.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -34,7 +33,6 @@ class PatientListViewModel(
         viewModelScope.launch {
             repository.getPatients()
                 .catch { exception ->
-                    Log.e("Loading Patients", "Load patients failed: $exception");
                     errorOccurred = true
                     isLoading = false
                 }

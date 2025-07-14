@@ -2,7 +2,6 @@ package com.example.patientdataapp.network.api
 
 import com.example.patientdataapp.datamodel.Patient
 import kotlinx.coroutines.delay
-import java.lang.Exception
 
 class MockPatientApiService(
     private val data: List<Patient>,

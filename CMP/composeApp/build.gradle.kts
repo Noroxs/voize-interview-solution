@@ -38,7 +38,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.navigation.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -47,9 +46,12 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
+
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0-beta03")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.9.1")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel:2.9.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
